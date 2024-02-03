@@ -53,7 +53,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/${{ github.repository }}/${{ env.image_name }}
+            # ghcr.io/${{ github.repository }}/${{ env.image_name }}
             quay.io/josephtole/common-workspace
           tags: |
             # type=ref,event=branch
