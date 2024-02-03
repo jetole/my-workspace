@@ -4,21 +4,21 @@ name: Version, Build, and Publish Container Image
 on:
   push
 
+env:
+  image_name: my-workspace
+
 jobs:
   build_container_image:
     name: Version, Build, and Publish
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        # environment: [base, home, work]
+        environment: [base]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Login To GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login To Quay.io Container Registry
         uses: docker/login-action@v3
@@ -44,38 +44,26 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Define image name
-        run: echo "image_name=${GITHUB_REPOSITORY##*/}" | tee -a "$GITHUB_ENV"
-
       - name: Create Container Metadata
-        if: ${{ github.event_name != 'pull_request' }}
         id: docker-metadata
         uses: docker/metadata-action@v5
         with:
           images: |
-            # ghcr.io/${{ github.repository }}/${{ env.image_name }}
             quay.io/josephtole/my-workspace
+
           tags: |
-            # type=ref,event=branch
-            # type=ref,event=pr
-            # type=sha,prefix={{branch}}-
-            # type=schedule
-
-            # set latest tag for default branch
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
-
-            # # set version tag for default branch
-            # type=raw,value=${{ steps.version.outputs.v-version }},enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
-            # type=raw,value=${{ steps.version.outputs.major-v-version }},enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
-            # type=raw,value=${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }},enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            type=raw,value=${{ matrix.environment }}
+            type=raw,value=${{ matrix.environment }}-${{ steps.version.outputs.v-version }}
+            type=raw,value=${{ matrix.environment }}-${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}
+            type=raw,value=${{ matrix.environment }}-${{ steps.version.outputs.major-v-version }}
 
           flavor: |
             latest=false
 
       - name: Build and push image to registry
-        if: ${{ github.event_name != 'pull_request' }}
         uses: docker/build-push-action@v5
         with:
+          context: "{{ defaultContext }}:${{ matrix.environment }}"
           push: true
           load: false
           labels: ${{ steps.docker-metadata.outputs.labels }}
