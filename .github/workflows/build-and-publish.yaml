@@ -54,7 +54,7 @@ jobs:
         with:
           images: |
             # ghcr.io/${{ github.repository }}/${{ env.image_name }}
-            quay.io/josephtole/common-workspace
+            quay.io/josephtole/my-workspace
           tags: |
             # type=ref,event=branch
             # type=ref,event=pr
