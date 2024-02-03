@@ -1,0 +1,16 @@
+openssh-client
+git
+git-man
+neovim
+htop
+nmap
+hping3
+bat
+autossh
+curl
+wget
+gnome-keyring
+jq
+mount
+zsh
+tmux

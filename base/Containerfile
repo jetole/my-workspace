@@ -1,23 +1,7 @@
 FROM quay.io/toolbx-images/debian-toolbox:unstable
 
 RUN apt-get update && \
-    apt-get install -y \
-      openssh-client \
-      git \
-      git-man \
-      neovim \
-      htop \
-      nmap \
-      hping3 \
-      bat \
-      autossh \
-      curl \
-      wget \
-      gnome-keyring \
-      jq \
-      mount \
-      zsh \
-      tmux && \
+    grep -v '^#' apt-packages | xargs apt-get install -y && \
     apt-get clean
 
 ENTRYPOINT ["zsh"]
