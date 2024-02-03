@@ -2,11 +2,6 @@ FROM quay.io/toolbx-images/debian-toolbox:unstable
 
 RUN apt-get update && \
     apt-get install -y \
-      podman \
-      podman-compose \
-      podman-docker \
-      podman-remote \
-      podman-toolbox \
       openssh-client \
       git \
       git-man \
@@ -24,3 +19,5 @@ RUN apt-get update && \
       zsh \
       tmux && \
     apt-get clean
+
+ENTRYPOINT ["zsh"]
