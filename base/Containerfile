@@ -1,4 +1,4 @@
-FROM quay.io/toolbx-images/debian-toolbox:unstable
+FROM docker.io/debian:sid
 
 RUN apt-get update && \
     grep -v '^#' apt-packages | xargs apt-get install -y && \
