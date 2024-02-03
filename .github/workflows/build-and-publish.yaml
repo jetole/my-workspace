@@ -64,6 +64,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: "{{ defaultContext }}:${{ matrix.environment }}"
+          file: Containerfile
           push: true
           load: false
           labels: ${{ steps.docker-metadata.outputs.labels }}
