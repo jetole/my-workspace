@@ -1,7 +1,7 @@
 FROM docker.io/debian:sid
 
-RUN apt-get update && \
-    grep -v '^#' apt-packages | xargs apt-get install -y && \
-    apt-get clean
+COPY skel/* /etc/skel/
+
+RUN install.sh
 
 ENTRYPOINT ["zsh"]
