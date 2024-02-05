@@ -1,5 +1,5 @@
 ---
-name: Build and Publish Container Image
+name: Build and Publish Container Images
 
 on:
   push
@@ -54,7 +54,10 @@ jobs:
       - name: Load base image
         run: |
           docker load -i /tmp/base.tar
+          wait
           docker image ls -a
+          docker tag local/base-image:latest localhost:5000/base-image:latest
+          docker push localhost:5000/base-image:latest
 
       - name: Login To Quay.io container registry
         uses: docker/login-action@v3

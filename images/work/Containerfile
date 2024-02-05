@@ -1,1 +1,1 @@
-FROM local/base-image:latest
+FROM localhost:5000/base-image:latest
