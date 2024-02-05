@@ -124,3 +124,6 @@ jobs:
           load: false
           labels: ${{ steps.docker-metadata.outputs.labels }}
           tags: ${{ steps.docker-metadata.outputs.tags }}
+          allow: network.host
+          network: host
+          add-hosts: localhost:127.0.0.1
