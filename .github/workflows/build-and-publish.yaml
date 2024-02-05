@@ -44,8 +44,8 @@ jobs:
         with:
           context: "{{ defaultContext }}:images/base"
           file: Containerfile
-          tags: local/base-image:latest
-          outputs: type=docker,dest=/tmp/base.tar
+          tags: base-image:latest
+          outputs: type=oci,dest=/tmp/base.tar
 
       - name: Upload base image artrifact
         uses: actions/upload-artifact@v4
@@ -78,16 +78,16 @@ jobs:
           name: base-image
           path: /tmp
 
-      # - name: Load base image
-      #   run: |
-      #     docker load -i /tmp/base.tar
-      #     wait
-      #     docker image ls -a
-      #     docker tag local/base-image:latest localhost:5000/base-image:latest
-      #     docker push localhost:5000/base-image:latest
+      - name: Load base image
+        run: |
+          docker load -i /tmp/base.tar
+          wait
+          docker image ls -a
+          docker tag base-image:latest localhost:5000/base-image:latest
+          docker push localhost:5000/base-image:latest
 
-      #     curl -k http://localhost:5000/v2/_catalog
-      #     curl -k http://localhost:5000/v2/base-image/manifests/latest
+          curl -k http://localhost:5000/v2/_catalog
+          curl -k http://localhost:5000/v2/base-image/manifests/latest
 
       - name: Login To Quay.io container registry
         uses: docker/login-action@v3
@@ -124,7 +124,7 @@ jobs:
           load: false
           labels: ${{ steps.docker-metadata.outputs.labels }}
           tags: ${{ steps.docker-metadata.outputs.tags }}
-          # allow: network.host
-          # network: host
-          # add-hosts: localhost:127.0.0.1
-          build-context: base-image=docker-image:///tmp/base.tar
+          allow: network.host
+          network: host
+          add-hosts: localhost:127.0.0.1
+          # build-context: base-image=docker-image:///tmp/base.tar
