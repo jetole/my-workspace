@@ -29,10 +29,10 @@ jobs:
           git tag -f "${{ steps.version.outputs.v-version }}"
           git push -f --tags
 
-      outputs:
-        full-version: ${{ steps.version.outputs.v-version }}
-        major-version: ${{ steps.version.outputs.major-v-version }}
-        major-minor-version: ${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}
+    outputs:
+      full-version: ${{ steps.version.outputs.v-version }}
+      major-version: ${{ steps.version.outputs.major-v-version }}
+      major-minor-version: ${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}
 
   build_base_image:
     name: Build Base Image
