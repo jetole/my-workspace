@@ -5,4 +5,4 @@ COPY install.sh /tmp/install.sh
 
 RUN /tmp/install.sh && rm -fv /tmp/install.sh
 
-ENTRYPOINT ["zsh"]
+ENTRYPOINT ["/usr/bin/zsh"]
