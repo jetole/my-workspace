@@ -2,6 +2,6 @@ FROM docker.io/debian:sid
 
 COPY skel/* /etc/skel/
 
-RUN install.sh
+RUN ./install.sh
 
 ENTRYPOINT ["zsh"]
