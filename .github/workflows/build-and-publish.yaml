@@ -91,23 +91,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download base image artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: base-image
-          path: /tmp
-
-      - name: Load base image
-        run: |
-          docker load -i /tmp/base.tar
-          wait
-          docker image ls -a
-          docker tag base-image:latest localhost:5000/base-image:latest
-          docker push localhost:5000/base-image:latest
-
-          curl -k http://localhost:5000/v2/_catalog
-          curl -k http://localhost:5000/v2/base-image/manifests/latest
-
       - name: Login To Quay.io container registry
         uses: docker/login-action@v3
         with:
