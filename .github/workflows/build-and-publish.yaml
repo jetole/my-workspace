@@ -27,7 +27,7 @@ jobs:
           outputs: type=docker,dest=/tmp/base.tar
 
       - name: Upload base image artrifact
-        uses: actions/upload-artifact@4
+        uses: actions/upload-artifact@v4
         with:
           name: base-image
           path: /tmp/base.tar
