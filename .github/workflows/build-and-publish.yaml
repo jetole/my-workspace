@@ -29,11 +29,6 @@ jobs:
           git tag -f "${{ steps.version.outputs.v-version }}"
           git push -f --tags
 
-    outputs:
-      full-version: ${{ steps.version.outputs.v-version }}
-      major-version: ${{ steps.version.outputs.major-v-version }}
-      major-minor-version: ${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}
-
   build_base_image:
     name: Build Base Image
     runs-on: ubuntu-22.04
@@ -60,12 +55,9 @@ jobs:
 
           tags: |
             type=raw,value=base
-            type=raw,value=base-${{ needs.tags.outputs.full-version }}
-            type=raw,value=base-${{ needs.tags.outputs.major-version }}
-            type=raw,value=base-${{ needs.tags.outputs.major-minor-version }}
 
           flavor: |
-            latest=true
+            latest=false
 
       - name: Build and push image to registry
         uses: docker/build-push-action@v5
@@ -115,12 +107,9 @@ jobs:
 
           tags: |
             type=raw,value=${{ matrix.environment }}
-            type=raw,value=${{ matrix.environment }}-${{ needs.tags.outputs.full-version }}
-            type=raw,value=${{ matrix.environment }}-${{ needs.tags.outputs.major-version }}
-            type=raw,value=${{ matrix.environment }}-${{ needs.tags.outputs.major-minor-version }}
 
           flavor: |
-            latest=true
+            latest=false
 
       - name: Build and push image to registry
         uses: docker/build-push-action@v5
