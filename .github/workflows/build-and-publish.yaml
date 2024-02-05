@@ -43,8 +43,6 @@ jobs:
         image: registry:2
         ports:
           - 5000:5000
-        env:
-          REGISTRY_STORAGE_DELETE_ENABLED: "true"
 
     strategy:
       matrix:
