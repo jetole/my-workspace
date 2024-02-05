@@ -1,1 +1,1 @@
-FROM 127.0.0.1:5000/base-image
+FROM quay.io/josephtole/my-workspace:base

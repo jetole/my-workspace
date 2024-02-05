@@ -36,22 +36,41 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Login To Quay.io container registry
+        uses: docker/login-action@v3
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build base image
+      - name: Create container metadata
+        id: docker-metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            quay.io/josephtole/my-workspace
+
+          tags: |
+            type=raw,value=base
+            type=raw,value=base-${{ steps.version.outputs.v-version }}
+            type=raw,value=base-${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}
+            type=raw,value=base-${{ steps.version.outputs.major-v-version }}
+
+          flavor: |
+            latest=true
+
+      - name: Build and push image to registry
         uses: docker/build-push-action@v5
         with:
           context: "{{ defaultContext }}:images/base"
           file: Containerfile
-          tags: base-image:latest
-          outputs: type=oci,dest=/tmp/base.tar
-
-      - name: Upload base image artrifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: base-image
-          path: /tmp/base.tar
+          push: true
+          load: false
+          labels: ${{ steps.docker-metadata.outputs.labels }}
+          tags: ${{ steps.docker-metadata.outputs.tags }}
 
   build_container_image:
     name: Build Images
@@ -113,7 +132,7 @@ jobs:
             type=raw,value=${{ matrix.environment }}-${{ steps.version.outputs.major-v-version }}
 
           flavor: |
-            latest=false
+            latest=true
 
       - name: Build and push image to registry
         uses: docker/build-push-action@v5
@@ -124,7 +143,3 @@ jobs:
           load: false
           labels: ${{ steps.docker-metadata.outputs.labels }}
           tags: ${{ steps.docker-metadata.outputs.tags }}
-          allow: network.host
-          network: host
-          add-hosts: localhost:127.0.0.1
-          # build-context: base-image=docker-image:///tmp/base.tar
