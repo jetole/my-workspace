@@ -8,6 +8,27 @@ env:
   image_name: my-workspace
 
 jobs:
+  version_tags:
+    name: Push Tags
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version
+        id: version
+        uses: reecetech/version-increment@2023.9.3
+        with:
+          scheme: semver
+          increment: patch
+
+      - name: Push additional tags
+        run: |
+          git tag -f "${{ steps.version.outputs.major-v-version }}"
+          git tag -f "${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}"
+          git tag -f "${{ steps.version.outputs.v-version }}"
+          git push -f --tags
+
   build_base_image:
     name: Build Base Image
     runs-on: ubuntu-22.04
@@ -31,7 +52,6 @@ jobs:
         with:
           name: base-image
           path: /tmp/base.tar
-
 
   build_container_image:
     name: Build Images
@@ -75,20 +95,6 @@ jobs:
           registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
-
-      - name: Set version
-        id: version
-        uses: reecetech/version-increment@2023.9.3
-        with:
-          scheme: semver
-          increment: patch
-
-      - name: Push additional tags
-        run: |
-          git tag -f "${{ steps.version.outputs.major-v-version }}"
-          git tag -f "${{ steps.version.outputs.major-v-version }}.${{ steps.version.outputs.minor-version }}"
-          git tag -f "${{ steps.version.outputs.v-version }}"
-          git push -f --tags
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
