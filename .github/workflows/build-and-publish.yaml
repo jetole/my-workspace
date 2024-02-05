@@ -2,7 +2,9 @@
 name: Build and Publish Container Images
 
 on:
-  push
+  push:
+    branches:
+      - main
 
 env:
   image_name: my-workspace
