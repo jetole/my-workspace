@@ -77,6 +77,10 @@ plugins=(
     command-time
     zsh-syntax-highlighting
     zsh-autosuggestions
+    fd
+    git-extras
+    isodate
+    jsontools
 )
 
 source $ZSH/oh-my-zsh.sh

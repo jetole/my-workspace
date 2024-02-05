@@ -2,7 +2,8 @@ FROM docker.io/debian:sid
 
 COPY skel/* /etc/skel/
 COPY install.sh /tmp/install.sh
+COPY apt-packages.txt /tmp/apt-packages.txt
 
-RUN /tmp/install.sh && rm -fv /tmp/install.sh
+RUN /tmp/install.sh && rm -fv /tmp/install.sh /tmp/apt-packages.txt
 
 ENTRYPOINT ["/usr/bin/zsh"]
