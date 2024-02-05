@@ -20,11 +20,7 @@ curl -sS https://starship.rs/install.sh | sh
 for x in \
   podman \
   flatpak \
-  rpm-ostree \
-  sysctl \
-  swapon \
-  swapoff \
-  sync
+  rpm-ostree
 do
   ln -fs "/usr/bin/distrobox-host-exec" "/usr/local/bin/${x}"
 done
