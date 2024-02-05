@@ -67,6 +67,8 @@ jobs:
           docker push localhost:5000/base-image:latest
 
           curl -k http://localhost:5000/v2/_catalog
+          curl -k http://registry:5000/v2/_catalog
+          curl -k http://localhost:5000/v2/base-image/manifests/latest
 
       - name: Login To Quay.io container registry
         uses: docker/login-action@v3
