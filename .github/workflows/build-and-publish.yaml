@@ -8,7 +8,7 @@ env:
   image_name: my-workspace
 
 jobs:
-  version_tags:
+  tags:
     name: Push Tags
     runs-on: ubuntu-22.04
     steps:
@@ -56,7 +56,7 @@ jobs:
   build_container_image:
     name: Build Images
     runs-on: ubuntu-22.04
-    needs: build_base_image
+    needs: [tags, build_base_image]
 
     services:
       registry:
