@@ -106,7 +106,7 @@ jobs:
 
           tags: |
             type=raw,value=${{ matrix.environment }}
-            type=raw,value=latest,enable=${{ matrix.environment == 'home' }}
+            type=raw,value=latest,enable=${{ matrix.environment == 'home' }},priority=1000
 
           flavor: |
             latest=false
