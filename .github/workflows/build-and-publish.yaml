@@ -71,7 +71,7 @@ jobs:
           labels: ${{ steps.docker-metadata.outputs.labels }}
           tags: ${{ steps.docker-metadata.outputs.tags }}
 
-  build_container_image:
+  build_container_images:
     name: Build Images
     runs-on: ubuntu-22.04
     needs: [tags, build_base_image]
@@ -87,9 +87,6 @@ jobs:
         environment: [home, work]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Login To Quay.io container registry
         uses: docker/login-action@v3
         with:
@@ -109,6 +106,7 @@ jobs:
 
           tags: |
             type=raw,value=${{ matrix.environment }}
+            type=raw,value=latest,enable=${{ matrix.environment == 'home' }}
 
           flavor: |
             latest=false
