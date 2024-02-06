@@ -54,7 +54,7 @@ man-db
 manpages
 mesa-vulkan-drivers
 mount
-mpv
+# mpv
 mtr
 ncdu
 ncurses-base
