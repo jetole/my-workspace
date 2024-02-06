@@ -86,3 +86,5 @@ xauth
 xz-utils
 zip
 zsh
+kubernetes-client
+apt-transport-https
