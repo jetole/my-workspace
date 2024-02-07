@@ -8,10 +8,12 @@ apt-get clean
 # Install oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git /opt/oh-my-zsh
 
-# Install oh-my-zsh plugins
-git clone https://github.com/popstas/zsh-command-time.git /opt/oh-my-zsh/custom/plugins/command-time
-git clone https://github.com/zsh-users/zsh-autosuggestions.git /opt/oh-my-zsh/custom/plugins/command-time
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /opt/oh-my-zsh/custom/plugins/command-time
+# Set up oh-my-zsh
+mkdir -p /opt/oh-my-zsh-custom/{plugins,themes}
+git clone https://github.com/popstas/zsh-command-time.git /opt/oh-my-zsh-custom/plugins/
+git clone https://github.com/zsh-users/zsh-autosuggestions.git /opt/oh-my-zsh-custom/plugins/
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /opt/oh-my-zsh-custom/plugins/
+echo 'source /etc/zshrc' > /etc/zsh/zshrc
 
 # install starship prompt
 curl -sS https://starship.rs/install.sh | sh -s -- --yes

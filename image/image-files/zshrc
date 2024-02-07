@@ -1,6 +1,7 @@
 neofetch
 
 export ZSH="/opt/oh-my-zsh"
+export CUSTOM_ZSH="/opt/oh-my-zsh-custom"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.

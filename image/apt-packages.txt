@@ -88,3 +88,5 @@ zip
 zsh
 kubernetes-client
 apt-transport-https
+apt-file
+zsh-common
