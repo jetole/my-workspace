@@ -1,6 +1,6 @@
 FROM docker.io/debian:sid
 
-COPY skel/* /etc/skel/
+COPY skel/ /etc/skel/
 COPY install.sh /tmp/install.sh
 COPY apt-packages.txt /tmp/apt-packages.txt
 
