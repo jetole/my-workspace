@@ -1,8 +1,10 @@
 FROM docker.io/debian:sid
 
-COPY skel/ /etc/skel/
 COPY install.sh /tmp/install.sh
 COPY apt-packages.txt /tmp/apt-packages.txt
+
+COPY image-files/zshrc /etc/zshrc
+COPY image-files/starship.toml /etc/starship.toml
 
 RUN /tmp/install.sh && \
     rm -fv /tmp/install.sh /tmp/apt-packages.txt && \

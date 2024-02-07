@@ -1,3 +1,0 @@
-FROM quay.io/josephtole/my-workspace:base
-
-ENTRYPOINT ["/usr/bin/zsh"]

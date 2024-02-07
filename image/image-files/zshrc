@@ -131,4 +131,14 @@ export EDITOR=nvim
 
 # Enable starship (Should be at end)
 ################################################################################
+if ! [[ -d "${HOME}/.config/" ]]
+then
+  mkdir -p "${HOME}/.config/"
+fi
+
+if ! [[ -f "${HOME}/.config/starship.toml" ]]
+then
+  cp "/etc/starship.toml" "${HOME}/.config/starship.toml"
+fi
+
 eval "$(starship init zsh)"
