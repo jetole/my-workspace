@@ -32,7 +32,7 @@ jobs:
   #         git push -f --tags
 
   build_image:
-    name: Build Base Image
+    name: Build Image
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
