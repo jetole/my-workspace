@@ -14,7 +14,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git /opt/oh-my-zsh/cu
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /opt/oh-my-zsh/custom/plugins/command-time
 
 # install starship prompt
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # Create links to host apps
 for x in \
