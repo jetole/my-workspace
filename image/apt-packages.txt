@@ -1,3 +1,5 @@
+apt-file
+apt-transport-https
 apt-utils
 asciinema
 ash
@@ -34,6 +36,7 @@ iproute2
 iputils-ping
 jq
 keyutils
+kubernetes-client
 less
 libcap2-bin
 libegl1
@@ -54,7 +57,7 @@ man-db
 manpages
 mesa-vulkan-drivers
 mount
-# mpv
+mpv
 mtr
 ncdu
 ncurses-base
@@ -66,6 +69,7 @@ openssh-client
 passwd
 pigz
 pinentry-curses
+powerline
 procps
 ripgrep
 rsync
@@ -86,7 +90,4 @@ xauth
 xz-utils
 zip
 zsh
-kubernetes-client
-apt-transport-https
-apt-file
 zsh-common

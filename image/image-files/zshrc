@@ -1,20 +1,9 @@
-neofetch
-
-export ZSH="/opt/oh-my-zsh"
-export CUSTOM_ZSH="/opt/oh-my-zsh-custom"
-
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the followin line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=14
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS=true
@@ -36,15 +25,11 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Set tmux to auto start
-export ZSH_TMUX_AUTOSTART=true
-
-ZSH_TMUX_AUTOSTART_ONCE=true
-
-# Automatically connect to a previous session if it exits
-export ZSH_TMUX_AUTOCONNECT=true
-
-# Set tmux -u option to support unicode
+# tmux
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOQUIT=true
+ZSH_TMUX_CONFIG="/opt/tmux.conf"
 ZSH_TMUX_UNICODE=true
 
 # # Pyenv
@@ -63,6 +48,12 @@ ZSH_TMUX_UNICODE=true
 # This needs to be before we source the zsh-syntax-highlighting plugins
 autoload -U select-word-style
 select-word-style shell
+
+# If command execution time above min. time, plugins will not output time.
+ZSH_COMMAND_TIME_MIN_SECONDS=3
+
+# Exclude some commands
+ZSH_COMMAND_TIME_EXCLUDE=(vim nvim)
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -92,43 +83,26 @@ export PATH=$HOME/bin:$PATH
 umask 0077
 
 # Dircolors from https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-eval "$(dircolors "${HOME}/.dircolors.256dark")"
+eval "$(dircolors "/opt/dircolors.256dark")"
 
 # Aliases
 ################################################################################
 alias drop_cache='sudo sync && sudo sysctl -w vm.drop_caches=3'
 alias drop_swap='sudo sync && sudo sysctl -w vm.drop_caches=3 && sudo swapoff -a && sudo swapon -a'
 alias ipcalc='/usr/bin/ipcalc -n'
-# alias netstat='sudo /bin/netstat'
-alias open='xdg-open'
-# alias localenv='virtualenv --prompt "($(basename "$PWD"))" .venv; cd .'
-# alias pip='pip3'
-# alias whatismyip='dig myip.opendns.com @resolver1.opendns.com +short'
 alias ls='/bin/ls --color -Fh'
 alias docker=podman
 alias docker-compose=podman-compose
-# alias microk8s='sudo /snap/bin/microk8s'
-# alias kubectl='sudo /snap/bin/microk8s kubectl'
-# alias reload='source "${HOME}/.zshrc"'
-# alias code='code-insiders'
 alias bat="batcat"
 alias db='distrobox'
 alias cat='batcat --paging=never --style plain'
-alias clean_mem='drop_swap'
-alias default_branch='git checkout "$(basename "$(git symbolic-ref refs/remotes/origin/HEAD --short)")"'
-alias default_branch_show='echo "$(basename "$(git symbolic-ref refs/remotes/origin/HEAD --short)")"'
+alias ccat='/usr/bin/cat'
+alias default_branch='echo "$(basename "$(git symbolic-ref refs/remotes/origin/HEAD --short)")"'
+alias current_branch='$(git rev-parse --abbrev-ref HEAD)'
 
 # Other
 ################################################################################
 export PIPENV_VENV_IN_PROJECT=1
-
-# PATH="${HOME}/go/bin:$PATH"
-
-# Cause less to not page if there is less than a page of data
-export LESS='-F'
-
-export EDITOR=nvim
-
 
 # Enable starship (Should be at end)
 ################################################################################

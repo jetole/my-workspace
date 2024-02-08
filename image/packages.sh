@@ -3,17 +3,20 @@
 # Install packages from apt
 apt-get update
 grep -v '^#' /tmp/apt-packages.txt | xargs apt-get install -y
-apt-get clean
 
 # Install oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh.git /opt/oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git /opt/zsh/oh-my-zsh
 
 # Set up oh-my-zsh
-mkdir -p /opt/oh-my-zsh-custom/{plugins,themes}
-git clone https://github.com/popstas/zsh-command-time.git /opt/oh-my-zsh-custom/plugins/
-git clone https://github.com/zsh-users/zsh-autosuggestions.git /opt/oh-my-zsh-custom/plugins/
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /opt/oh-my-zsh-custom/plugins/
-echo 'source /etc/zshrc' > /etc/zsh/zshrc
+mkdir -p /opt/zsh/oh-my-zsh-custom/{plugins,themes}
+
+# install ZSH custom plugins
+(
+  cd /opt/zsh/oh-my-zsh-custom/plugins || exit 1
+  git clone https://github.com/popstas/zsh-command-time.git command-time/
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+)
 
 # install starship prompt
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
@@ -47,15 +50,3 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
   apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 apt-get update
 apt-get install -y google-cloud-cli
-
-# # Install vscode
-# (
-#   cd "$(mktemp -d)" || true
-#   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | \
-#     gpg --dearmor > packages.microsoft.gpg
-#   install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-#   echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list
-#   rm -fv packages.microsoft.gpg
-#   apt-get update
-#   apt-get install -y code
-# )
