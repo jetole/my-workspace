@@ -2,7 +2,6 @@ FROM docker.io/debian:sid as packages
 
 COPY packages.sh /tmp/install.sh
 COPY apt-packages.txt /tmp/apt-packages.txt
-COPY pipx-packages.txt /tmp/pipx-packages.txt
 
 RUN /tmp/install.sh && \
     rm -fv /tmp/install.sh /tmp/apt-packages.txt && \

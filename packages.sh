@@ -4,8 +4,6 @@
 apt-get update
 grep -v '^#' /tmp/apt-packages.txt | xargs apt-get install -y
 
-# Install package from pipx
-grep -v '^#' /tmp/pipx-packages.txt | xargs pipx install -y
 
 # Install oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git /opt/zsh/oh-my-zsh
