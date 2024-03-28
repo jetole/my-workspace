@@ -10,7 +10,6 @@ RUN /tmp/install.sh && \
 FROM packages as config
 
 COPY image-files/zshrc /opt/zsh/zdotdir/.zshrc
-COPY image-files/starship.toml /etc/starship.toml
 COPY image-files/dircolors.256dark /opt/dircolors.256dark
 COPY image-files/tmux.conf /opt/tmux.conf
 

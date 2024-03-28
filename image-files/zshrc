@@ -91,20 +91,6 @@ alias fd='fdfind'
 ################################################################################
 export PIPENV_VENV_IN_PROJECT=1
 
-# Enable starship (Should be at end)
-################################################################################
-if ! [[ -d "${HOME}/.config/" ]]
-then
-  mkdir -p "${HOME}/.config/"
-fi
-
-if ! [[ -f "${HOME}/.config/starship.toml" ]]
-then
-  cp "/etc/starship.toml" "${HOME}/.config/starship.toml"
-fi
-
-eval "$(starship init zsh)"
-
 # tfenv / tgenv
 ################################################################################
 sudo chown "$(id -un):$(id -gn)" /opt/tfenv /opt/tgenv

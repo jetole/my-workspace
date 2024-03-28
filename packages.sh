@@ -19,9 +19,6 @@ mkdir -p /opt/zsh/oh-my-zsh-custom/{plugins,themes}
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 )
 
-# install starship prompt
-curl -sS https://starship.rs/install.sh | sh -s -- --yes
-
 # Create links to host apps
 for x in \
   podman
