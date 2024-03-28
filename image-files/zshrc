@@ -91,11 +91,6 @@ alias fd='fdfind'
 ################################################################################
 export PIPENV_VENV_IN_PROJECT=1
 
-# tfenv / tgenv
-################################################################################
-sudo chown "$(id -un):$(id -gn)" /opt/tfenv /opt/tgenv
-# tgenv install latest
-
 # Make sure we have the latest and working host-spawn when we start
 ################################################################################
 if [[ -f "/usr/bin/distrobox-host-exec" ]]

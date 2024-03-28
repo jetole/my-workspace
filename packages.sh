@@ -45,12 +45,3 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
   apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 apt-get update
 apt-get install -y google-cloud-cli
-
-# Install tfenv
-git clone --depth=1 https://github.com/tfutils/tfenv.git /opt/tfenv
-echo latest > /opt/tfenv/version
-ln -s /opt/tfenv/bin/* /usr/local/bin/
-
-# Install tgenv
-git clone https://github.com/cunymatthieu/tgenv.git /opt/tgenv
-ln -s /opt/tgenv/bin/* /usr/local/bin/
