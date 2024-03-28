@@ -98,6 +98,13 @@ then
   /usr/bin/distrobox-host-exec -Y /usr/bin/true
 fi
 
+# Set up asdf
+. "$HOME/.asdf/asdf.sh"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+
 # PATH
 ################################################################################
 PATH="${HOME}/bin:${PATH}"
