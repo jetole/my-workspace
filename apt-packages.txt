@@ -1,3 +1,5 @@
+apt
+apt-utils
 apt-file
 apt-transport-https
 apt-utils
@@ -9,6 +11,7 @@ bash-completion
 bat
 bc
 btop
+build-essential
 bzip2
 curl
 dialog
@@ -38,18 +41,27 @@ jq
 keyutils
 kubernetes-client
 less
+libbz2-dev
 libcap2-bin
 libegl1
 libegl1-mesa
+libffi-dev
 libgl1
 libgl1-mesa-glx
 libglx-mesa0
 libkrb5-3
+liblzma-dev
+libncursesw5-dev
 libnss-mdns
 libnss-myhostname
+libreadline-dev
+libsqlite3-dev
+libssl-dev
 libvte-2.9*-common
 libvte-common
 libvulkan1
+libxml2-dev
+libxmlsec1-dev
 locales
 lsof
 man
@@ -69,6 +81,8 @@ openssh-client
 passwd
 pigz
 pinentry-curses
+pipenv
+pipx
 powerline
 procps
 ripgrep
@@ -78,6 +92,7 @@ sudo
 tcpdump
 thefuck
 time
+tk-dev
 tldr
 tmux
 traceroute
@@ -89,5 +104,8 @@ wget
 xauth
 xz-utils
 zip
+zlib1g-dev
 zsh
 zsh-common
+kubectx
+kubetail

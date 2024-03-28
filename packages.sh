@@ -4,6 +4,9 @@
 apt-get update
 grep -v '^#' /tmp/apt-packages.txt | xargs apt-get install -y
 
+# Install package from pipx
+grep -v '^#' /tmp/pipx-packages.txt | xargs pipx install -y
+
 # Install oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git /opt/zsh/oh-my-zsh
 
@@ -23,13 +26,13 @@ curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # Create links to host apps
 for x in \
-  podman \
-  flatpak \
-  rpm-ostree
+  podman
 do
   ln -fs "/usr/bin/distrobox-host-exec" "/usr/local/bin/${x}"
 done
 
+# Install PyEnv
+git clone https://github.com/pyenv/pyenv.git /opt/pyenv
 
 # Insall AWS CLI
 (
@@ -50,3 +53,12 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
   apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 apt-get update
 apt-get install -y google-cloud-cli
+
+# Install tfenv
+git clone --depth=1 https://github.com/tfutils/tfenv.git /opt/tfenv
+echo latest > /opt/tfenv/version
+ln -s /opt/tfenv/bin/* /usr/local/bin/
+
+# Install tgenv
+git clone https://github.com/cunymatthieu/tgenv.git /opt/tgenv
+ln -s /opt/tgenv/bin/* /usr/local/bin/
