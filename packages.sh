@@ -29,9 +29,6 @@ do
   ln -fs "/usr/bin/distrobox-host-exec" "/usr/local/bin/${x}"
 done
 
-# Install PyEnv
-git clone https://github.com/pyenv/pyenv.git /opt/pyenv
-
 # Insall AWS CLI
 (
   cd /tmp
