@@ -1,3 +1,39 @@
+# Set up container
+container_init_file="/run/container.init"
+
+# If the container hasn't been initialized yet...
+if ! [[ -f "${container_init_file}" ]]
+then
+  # Copy files to home dir if they don't exist
+  for x in \
+    tmux.conf \
+    p10k.zsh
+  do
+    if ! [[ -f "${HOME}/${x}" ]]
+    then
+      cp -v "/opt/system-files/${x}" "/${HOME}/.${x}"
+    fi
+  done
+
+  # Install asdf packages
+  while read pkg
+  do
+    asdf plugin add "${pkg}"
+    asdf install "${pkg}" latest
+    asdf global "${pkg}" latest
+  done < "/opt/system-files/asdf-packages.txt"
+
+  # Create file to show that the container has been initialized
+  date > "${container_init_file}"
+
+  if ! [[ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]
+  then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  fi
+fi
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
@@ -67,9 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 ################################################################################
 umask 0077
-
-# Dircolors from https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-eval "$(dircolors "/opt/dircolors.256dark")"
 
 # Aliases
 ################################################################################
