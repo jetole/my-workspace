@@ -1,3 +1,5 @@
+### This Makefile is used for local building and testing
+
 IMAGE_NAME = localhost/container-toobox
 TAGGED_IMAGE_NAME = ${IMAGE_NAME}:latest
 TEST_CONTAINER_NAME = test-container-toolbox
