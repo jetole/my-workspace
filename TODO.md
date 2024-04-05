@@ -4,7 +4,7 @@
   - This can be defined in /etc/zsh/zshenv
 - Create script to test if host commands exist and create symlinks in bin if they do
   - We can run something like `if /usr/bin/distrobox-host-exec podman -v`...
-  - Should probably remove have a conditional alias for docker=podman depending on if podman is installed and docker is not installed in the zshrc
+  - Should probably have a conditional alias for docker=podman depending on if podman is installed and docker is not installed in the zshrc
 - Create bin dir as part of zshrc if it doesn't exist
 - How do we create zshrc if it doesn't exist? Maybe we can define a script to run in one of the /etc/zsh files
 - Create scripts to setup for home or work
