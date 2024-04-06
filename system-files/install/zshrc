@@ -1,10 +1,36 @@
 if [[ -f "/run/.containerenv" ]]
 then
   container=1
-  export TERM=xterm-256color COLORTERM=truecolor
 
   # tmux doesn't open in UTF-8 mode in container
-  alias tmux='tmux -u'
+  alias tmux='tmux -u -2'
+
+  # Create links to host files
+  if command -v distrobox-host-exec >/dev/null
+  then
+  # unset podman_installed
+    for cmd in \
+      podman \
+      docker \
+      distrobox \
+      flatpak \
+      asdf
+    do
+      if /usr/bin/distrobox-host-exec "$cmd" --version >/dev/null 2>&1
+      then
+        if [[ "$cmd" == "podman" ]]
+        then
+          podman_installed=1
+        fi
+        if [[ "$cmd" == "flatpak" ]]
+        then
+          sudo ln -sf /usr/bin/distrobox-host-exec "/usr/bin/flatpak"
+        else
+          ln -sf /usr/bin/distrobox-host-exec "${HOME}/bin/${cmd}"
+        fi
+      fi
+    done
+  fi
 fi
 
 # Reconnect to detached TMUX sessions
@@ -110,7 +136,7 @@ export PIPENV_VENV_IN_PROJECT=1 PIPENV_VERBOSITY=1
 # Aliases
 ################################################################################
 alias drop_cache='sudo sync && sudo sysctl -w vm.drop_caches=3'
-alias drop_swap='sudo sync && sudo sysctl -w vm.drop_caches=3 && sudo swapoff -a && sudo swapon -a'
+alias drop_swap='drop_cache && sudo swapoff -a && sudo swapon -a'
 alias ipcalc='/usr/bin/ipcalc -n'
 # alias netstat='sudo /bin/netstat'
 alias open='xdg-open'
