@@ -9,7 +9,11 @@
 - How do we create zshrc if it doesn't exist? Maybe we can define a script to run in one of the /etc/zsh files
 - Create scripts to setup for home or work
 - Rename project: maybe `container-toolbox`, `container-workspace`, something other than `my-workspace`
-  - Kind of liking `container-toolbox`
+  - Kind of liking `export TERM=xterm-256color`
+  - !!! decided on toolbox-container
 - Figure out how to do custom shortcuts for terminal profiles
 - Icon for in container
   - PTAL https://github.com/romkatv/powerlevel10k/issues/1895
+- Figure out why icons and styling are wrong
+  - See https://github.com/romkatv/powerlevel10k#some-prompt-styles-are-missing-from-the-configuration-wizard
+  - This worked on a debian test container: `export TERM=xterm-256color`

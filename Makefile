@@ -1,11 +1,12 @@
 ### This Makefile is used for local building and testing
 
-IMAGE_NAME = container-toobox
-IMAGE_REF = localhost/${IMAGE_NAME}:latest
-TEST_CONTAINER_NAME = test-${IMAGE_NAME}
+IMAGE_NAME ?= container-toobox
+IMAGE_REF ?= localhost/${IMAGE_NAME}:latest
+TEST_CONTAINER_NAME ?= test-${IMAGE_NAME}
+CONTAINER_NAME ?= ${IMAGE_NAME}
 
-.DEFAULT_GOAL := btest
-.PHONY: build clean-container clean-image clean test btest
+.DEFAULT_GOAL := build-test
+.PHONY: build clean-container clean-image clean test build-test
 
 build: clean
 	@echo "Building ${IMAGE_REF}..."
@@ -22,7 +23,10 @@ clean-image:
 clean: clean-container clean-image
 
 test: clean-container
-	distrobox create -i "${IMAGE_REF}" -n "${TEST_CONTAINER_NAME}"
-	distrobox enter "${TEST_CONTAINER_NAME}"
+	SHELL=/bin/zsh distrobox create -i "${IMAGE_REF}" -n "${TEST_CONTAINER_NAME}"
+	SHELL=/bin/zsh distrobox enter "${TEST_CONTAINER_NAME}"
 
-btest: build test
+build-test: build test
+
+deploy:
+	SHELL=/bin/zsh distrobox create -i "${IMAGE_REF}" -n "${CONTAINER_NAME}"

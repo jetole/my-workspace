@@ -33,3 +33,5 @@ zsh
 zsh-common
 # sqlite3
 git
+tree
+locales
